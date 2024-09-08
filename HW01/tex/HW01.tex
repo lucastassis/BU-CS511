@@ -1,0 +1,201 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {September 12, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 01}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1}
+
+\subsection*{Exercise 1.2.1 -- (h): $p \vdash (p \to q) \to q $}
+\begin{logicproof}{3}
+    p & premise \\
+    \begin{subproof}
+        p \to q & assumption \\
+        q & $\Elim{\to}$ \ 1, 2
+    \end{subproof}
+    (p \to q) \to q & $\Intro{\to}$ \ 2--3
+\end{logicproof}
+
+\subsection*{Exercise 1.2.1 -- (i): $(p \to r) \land  (q \to r) \vdash p \land q \to r$}
+\begin{logicproof}{3}
+    (p \to r) \land (q \to r) & premise \\
+    p \to r & $\ElimA{\land}$ 1 \\
+    \begin{subproof}
+        p \land q & assumption \\
+        p & $\ElimA{\land}$ 3 \\
+        r & $\Elim{\to}$ 2, 4
+    \end{subproof}
+    (p \land q) \to r & $\Intro{\to}$ 3--5
+\end{logicproof}
+
+\subsection*{Exercise 1.2.1 -- (j): $q \to r \vdash (p \to q) \to (p \to r)$}
+\begin{logicproof}{3}
+    q \to r & premise \\
+    \begin{subproof}
+        p \to q & assumption \\
+        \begin{subproof}
+            p & assumption \\
+            q & $\Elim{\to}$ 2, 3 \\
+            r & $\Elim{\to}$ 1, 4
+        \end{subproof}
+        p \to r & $\Intro{\to}$ 3--5
+    \end{subproof}
+    (p \to q) \to (p \to r) & $\Intro{\to}$ 2--6
+\end{logicproof}
+
+\section*{Exercise 2}
+
+\subsection*{Exercise 1.4.2 -- (g): $((p \to q) \to p) \to p$}
+\[
+\begin{array}{ c | c || c | c | c}
+ p & q & p \to q & (p \to q) \to p &  ((p \to q) \to p) \to p
+\\ \hline 
+ \TTT & \TTT & \TTT & \TTT & \TTT\\ \hline  
+ \TTT & \FFF & \FFF & \TTT & \TTT\\ \hline  
+ \FFF & \TTT & \TTT & \FFF & \TTT\\ \hline  
+ \FFF & \FFF & \TTT & \FFF & \TTT  
+\end{array}
+\]
+
+\subsection*{Exercise 1.4.2 -- (h): $((p \lor q) \to r) \to ((p \to r) \lor (q \to r))$}
+\[
+\begin{array}{ c | c | c || c | c | c | c | c | c}
+    p & q & r & p \lor q & (p \lor q) \to r& p \to r & q \to r & (p \to r) \lor (q \to r) & ((p \lor q) \to r) \to ((p \to r) \lor (q \to r))\\ \hline 
+    \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT\\ \hline  
+    \TTT & \TTT & \FFF & \TTT & \FFF & \FFF & \FFF & \FFF & \TTT\\ \hline  
+    \TTT & \FFF & \FFF & \TTT & \FFF & \FFF & \TTT & \TTT & \TTT\\ \hline  
+    \TTT & \FFF & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT\\ \hline  
+    \FFF & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT & \TTT\\ \hline  
+    \FFF & \FFF & \TTT & \FFF & \TTT & \TTT & \TTT & \TTT & \TTT\\ \hline  
+    \FFF & \TTT & \FFF & \TTT & \FFF & \TTT & \FFF & \TTT & \TTT\\ \hline
+    \FFF & \FFF & \FFF & \FFF & \TTT & \TTT & \TTT & \TTT & \TTT
+   \end{array}
+\]
+
+\subsection*{Exercise 1.4.2 -- (i): $(p \to q) \to (\neg{p} \to \neg{q})$}
+\[
+\begin{array}{ c | c || c | c | c | c | c}
+ p & q & \neg{p} & \neg{q}& p \to q & \neg{p} \to \neg{q} & (p \to q) \to (\neg{p} \to \neg{q})
+\\ \hline 
+ \TTT & \TTT & \FFF & \FFF & \TTT & \TTT & \TTT \\ \hline  
+ \TTT & \FFF & \FFF & \TTT & \FFF & \TTT & \TTT \\ \hline  
+ \FFF & \TTT & \TTT & \FFF & \TTT & \FFF & \FFF \\ \hline  
+ \FFF & \FFF & \TTT & \TTT & \TTT & \TTT & \TTT
+\end{array}
+\]
+
+\section*{Exercise 3}
+Link to code on \href{https://github.com/lucastassis/BU-CS511/HW01/code/HW01.lean}{GitHub}. The solution was:
+
+\begin{lstlisting}
+-- Example 1.3.4
+example {w : ℚ} (h1 : 3 * w + 1 = 4) : w = 1 :=
+  calc
+    w = ((3 * w + 1) / 3) - (1 / 3) := by ring
+    _ = (4 / 3) - 1 / 3 := by rw [h1]
+    _ = 1 := by ring
+\end{lstlisting}
+
+\section*{Exercise 4}
+Link to code on \href{https://github.com/lucastassis/BU-CS511/HW01/code/HW01.lean}{GitHub}. The solution was: 
+
+\begin{lstlisting}
+-- Example 1.3.9
+example {a b : ℚ} (h1 : a - 3 = 2 * b) : a ^ 2 - a + 3 = 4 * b ^ 2 + 10 * b + 9 :=
+  calc
+    a ^ 2 - a + 3 = ((a - 3) ^ 2 + 6 * a - 9) - a + 3 := by ring
+    _ = (a - 3) ^ 2 + 5 * a - 6 := by ring
+    _ = (a - 3) ^ 2 + 5 * ((a - 3) + 3) - 6 := by ring
+    _ = (a - 3) ^ 2 + 5 * (a - 3) + 9 := by ring
+    _ = (2 * b) ^ 2 + 5 * (2 * b) + 9 := by rw [h1]
+    _ = 4 * b ^ 2 + 10 * b + 9 := by ring
+\end{lstlisting}
+
+
+\end{document}
