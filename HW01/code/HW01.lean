@@ -1,5 +1,5 @@
 import Mathlib.Data.Real.Basic
-import Mathlib.Tactic.Ring
+import Library.Basic
 
 -- Example 1.3.4
 example {w : ℚ} (h1 : 3 * w + 1 = 4) : w = 1 :=
