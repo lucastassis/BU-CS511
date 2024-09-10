@@ -19,6 +19,7 @@ example {a b : ℚ} (h1 : a - 3 = 2 * b) : a ^ 2 - a + 3 = 4 * b ^ 2 + 10 * b + 
     _ = (2 * b) ^ 2 + 5 * (2 * b) + 9 := by rw [h1]
     _ = 4 * b ^ 2 + 10 * b + 9 := by ring
 
+-- Section 1.3.11 - Exercise 7
 example {a b c : ℝ} (h1 : a + 2 * b + 3 * c = 7) (h2 : b + 2 * c = 3)
     (h3 : c = 1) : a = 2 :=
   calc
