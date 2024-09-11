@@ -177,9 +177,23 @@ Let us suppose that $C$ contains neither $\lnot$ nor $\bot$. Now let us consider
 
 
 \subsection*{Exercise 1.5.3 -- (c)}
-The set $\{\leftrightarrow, \neg\}$ is not an adequate set of connectives for propositional logic. This is because we cannot create $\{\land, \lor, \to\}$ using only $\{\leftarrow, \neg\}$. We can prove this by showing that any formula using only $\{\leftrightarrow, \neg\}$ will always have an even number of $\TTT$ and $\FFF$ in the truth table, and, therefore, we cannot create connectives such as $\{\land, \lor, \to\}$ (that have an odd number of $\TTT$ and $\FFF$ values). The proof that $\{\leftrightarrow, \neg\}$ will always have an even number of $\TTT$ and $\FFF$ in the truth table can be done by structural induction.
+My answer was based on this \href{https://math.stackexchange.com/questions/191146/prove-that-a-set-of-connectives-is-inadequate/192277#192277}{discussion}.
 
+The set $\{\leftrightarrow, \neg\}$ is not an adequate set of connectives for propositional logic. This is because we cannot create $\{\land, \lor, \to\}$ using only $\{\leftrightarrow, \neg\}$. We can prove this by showing that any formula using only $\{\leftrightarrow, \neg\}$ will always have an even number of $\TTT$ and $\FFF$ in the truth table, and, therefore, we cannot create connectives such as $\{\land, \lor, \to\}$ (that have an odd number of $\TTT$ and $\FFF$ values). If we look at the truth table of the connectives $\{\leftrightarrow, \neg\}$, we can see that we have always an even number of $\TTT$ and $\FFF$:
 
+\[
+\begin{array}{c | c || c | c | c | c | c | c}
+    \phi & \psi & \neg{\phi} & \neg{\psi} & \phi \leftrightarrow \neg{\psi} & \neg{\phi} \leftrightarrow \psi & \neg{\phi} \leftrightarrow \neg{\psi} & \phi \leftrightarrow \psi \\ \hline
+    \TTT & \TTT & \FFF & \FFF & \FFF & \FFF & \TTT & \TTT \\ \hline  
+    \TTT & \FFF & \FFF & \TTT & \TTT & \TTT & \FFF & \FFF \\ \hline  
+    \FFF & \TTT & \TTT & \FFF & \TTT & \TTT & \FFF & \FFF \\ \hline  
+    \FFF & \FFF & \TTT & \TTT & \FFF & \FFF & \TTT & \TTT
+\end{array}
+\]
+
+Thus, if $\phi$ and $\psi$ are formulas only using $\{\leftrightarrow, \neg\}$, they still will always have a even number of $\TTT$ and $\FFF$. Therefore, the set $\{\leftrightarrow, \neg\}$ is not an adequate set of connectives for propositional logic.
+
+\newpage
 \section*{Exercise 3}
 Link to code on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW01/code/HW01.lean}{GitHub}. The solution was:
 
