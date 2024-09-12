@@ -9,7 +9,7 @@ math2001_init
 example {w : ℚ} (h1 : 3 * w + 1 = 4) : w = 1 := by
   calc
     w = ((3 * w + 1) / 3) - (1 / 3) := by ring
-    _ = (4 / 3) - 1 / 3 := by rw [h1]
+    _ = (4 / 3) - (1 / 3) := by rw [h1]
     _ = 1 := by ring
 
 -- Exercise 4:  MoP Example 1.3.9

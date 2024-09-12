@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1726096855.693 "/Users/lucas/Documents/BU-CS511/HW01/tex/HW01.tex" "HW01.pdf" "HW01" 1726096856.34338 0
-  "/Users/lucas/Documents/BU-CS511/HW01/tex/HW01.tex" 1726096855.48586 9830 1a8befc991db6139eccf2777267fa68f ""
+["pdflatex"] 1726158529.40208 "/Users/lucas/Documents/BU-CS511/HW01/tex/HW01.tex" "HW01.pdf" "HW01" 1726158530.04216 0
+  "/Users/lucas/Documents/BU-CS511/HW01/tex/HW01.tex" 1726158529.2017 9832 d10d2c0cec0747699a975ef0f83478fb ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -203,10 +203,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726092854.59076 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726092813 8221421 e9aa87d61b04a92cb024d4c26e63483f ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "HW01.aux" 1726096856.28042 162 59504cb8f8bee0a3f0488d753cb23a1e "pdflatex"
-  "HW01.out" 1726096856.06642 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "HW01.tex" 1726096855.48586 9830 1a8befc991db6139eccf2777267fa68f ""
-  "lstlean.tex" 1726080301.45726 8363 57cc255f63557fa516b9ea2adf94ab16 ""
+  "HW01.aux" 1726158529.98339 162 59504cb8f8bee0a3f0488d753cb23a1e "pdflatex"
+  "HW01.out" 1726158529.77706 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "HW01.tex" 1726158529.2017 9832 d10d2c0cec0747699a975ef0f83478fb ""
+  "lstlean.tex" 1726158468.88865 8363 57cc255f63557fa516b9ea2adf94ab16 ""
   (generated)
   "HW01.aux"
   "HW01.log"
