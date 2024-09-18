@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {September 19, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 2}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1}
+(Some ideas were from the example of the proof of length of two lists on \href{https://en.wikipedia.org/wiki/Structural_induction}{Wikipedia})
+
+The exercise asks us to use structural induction on $t \in A^*$ to prove the property $P(t)$ defined by:
+
+$$P(t) \stackrel{\text{def}}{=} \text{for all }s\in A^* \text{ it holds that reverse}(s \cdot t) = \text{reverse}(t) \cdot \text{reverse}(s)$$
+
+To prove this property by structural induction, we also have to use the definition of the reverse function. Using the definition on page 7 in Lecture Slides 6, we have that reverse$(s \cdot x) \stackrel{\text{def}}{=}x \cdot \text{reverse}(s)$ and reverse$(\varepsilon) \stackrel{\text{def}}{=}\varepsilon$. 
+
+\paragraph{Base step:} In the base case, we have that t = $\varepsilon$ (empty string), thus:
+
+\begin{align*}
+    \text{reverse}(s \cdot t) &= \text{reverse}(s \cdot \varepsilon) \\
+    &= \text{reverse}(s) \\
+    &= \varepsilon \cdot \text{reverse}(s) \\
+    &= \text{reverse}(t) \cdot \text{reverse}(s)
+\end{align*}
+
+Thus, we have that the property holds up in the base case.
+
+\paragraph*{Inductive step:} Consider that we denote the string $t = w \cdot x$, where $x$ is the last character of the string $t$. To prove by structural induction, we will assume that $P(w)$ is true, and prove that the property still holds for $P(t=w \cdot x)$. If we apply $\text{reverse}(s \cdot t)$:
+
+\begin{align*}
+    \text{reverse}(s \cdot t) &= \text{reverse}(s \cdot (w \cdot x)) \\
+    &= \text{reverse}((s \cdot w) \cdot x) \\
+    &= x \cdot \text{reverse}(s \cdot w) && \text{reverse definition}\\
+    &= x \cdot (\text{reverse}(w) \cdot \text{reverse}(s)) && \text{induction hypothesis}\\
+    &= (x \cdot \text{reverse}(w)) \cdot \text{reverse}(s) \\
+    &= \text{reverse} (w \cdot x) \cdot \text{reverse}(s) \\
+    &= \text{reverse}(t) \cdot \text{reverse}(s)
+\end{align*}
+
+Since the property still holds for $P(t)$, we proved by structural induction that:
+
+$$P(t) \stackrel{\text{def}}{=} \text{for all }s\in A^* \text{ it holds that reverse}(s \cdot t) = \text{reverse}(t) \cdot \text{reverse}(s)$$
+
+\section*{Exercise 2}
+(From LCS, page 87: Exercise 1.4.15)
+
+We have to use mathematical induction on $n$ to show that:
+
+$$((\phi_1 \land ( \phi_2 \land (\cdots \land \phi_n) \cdots) \to \psi) \to ((\phi_1 \to (\phi_2 \to (\cdots (\phi_n \to \psi) \cdots))))$$
+
+\paragraph*{Base step:} First, we have to show that the statement holds for the base case, which is $n = 1$. In this case, we have $(\phi_1 \to \psi) \to (\phi_1 \to \psi)$, which is true. So the statement holds for the base case.
+
+\paragraph*{Inductive step:} Now, we have to show that if the statement is holds for $n=k$ (induction hypothesis), then $k+1$ also holds. Using natural deduction on $k + 1$:
+
+\begin{logicproof}{3}
+    ((\phi_1\land(\phi_2\land(\cdots\land(\phi_k\land\phi_{k+1})\cdots)) \to \psi & premise \\
+    \begin{subproof}
+        (\phi_1\land(\phi_2 \land(\cdots \land \phi_k)\cdots) & assumption\\
+        \begin{subproof}
+            \phi_{k+1} & assumption \\
+            (\phi_1\land(\phi_2\land(\cdots\land(\phi_k\land\phi_{k+1})\cdots) & $\Intro{\land}$ 2,3 \\
+            \psi & $\Elim{\to}$ 1,4
+        \end{subproof}
+        \phi_{k+1} \to \psi & $\Intro{\to}$ 3--5
+    \end{subproof}
+    (\phi_1\land(\phi_2 \land(\cdots \land \phi_k)\cdots) \to (\phi_{k+1} \to \psi) & $\Intro{\to}$ 2--6 \\
+    (\phi_1 \to (\phi_2 \to (\cdots (\phi_k \to (\phi_{k+1} \to \psi) \cdots))) & induction hypothesis
+\end{logicproof}
+
+Thus, we showed by mathematical induction that the statement holds.
+
+\section*{Problem 1}
+
+\subsection*{(b) (LEM) is derivable from (PBC)}
+
+\subsection*{(c) ($\lnot\lnot$E) is derivable from (LEM)}
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW02/code/HW02.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW02/code/HW02.lean}{GitHub}.
+
+
+\end{document}
