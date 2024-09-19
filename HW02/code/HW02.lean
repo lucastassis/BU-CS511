@@ -67,10 +67,35 @@ example {m : ℤ} (hm : m + 1 = 5) : 3 * m ≠ 6 := by
 /- # Problem 2 -/
 
 -- Example 2.1.8
-example (a b : ℝ) (h : a ≤ b) : a ^ 3 ≤ b ^ 3 := by sorry
+example (a b : ℝ) (h : a ≤ b) : a ^ 3 ≤ b ^ 3 := by
+  have h2: 0 ≤ b - a := by addarith[h]
+  calc
+    a^3 ≤ a^3 + ((b - a) * ((b - a)^2 + 3 * (b + a)^2)) / 4 := by extra
+    _ = b^3 := by ring
 
 -- Exercise 2.1.9 (2)
-example {n : ℤ} (hn : n ^ 2 + 4 = 4 * n) : n = 2 := by sorry
+example {n : ℤ} (hn : n ^ 2 + 4 = 4 * n) : n = 2 := by
+  have h1 : 0 = n ^ 2 + 4 - 4 * n := by addarith[hn]
+  have h2 := by
+    calc
+      (n - 2) ^ 2 = n ^ 2 + 4 - 4 * n := by ring
+      _ = 0 := by rel [h1]
+  cancel 2 at h2
+  calc
+    n = 2 := by addarith[h2]
 
 -- Exercise 2.2.4 (2)
-example {s : ℚ} (h1 : 3 * s ≤ -6) (h2 : 2 * s ≥ -4) : s = -2 := by sorry
+example {s : ℚ} (h1 : 3 * s ≤ -6) (h2 : 2 * s ≥ -4) : s = -2 := by
+  apply le_antisymm
+  have h3 := by
+    calc
+    s = 3 * s / 3 := by ring
+    _ ≤ -6 / 3 := by rel [h1]
+    _ ≤ -2 := by numbers
+  apply h3
+  have h4 := by
+    calc
+    -2 = -4 / 2:= by numbers
+    _ ≤ 2 * s / 2 := by rel [h2]
+    _ = s := by ring
+  apply h4

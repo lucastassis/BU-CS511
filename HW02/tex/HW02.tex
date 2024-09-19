@@ -158,7 +158,34 @@ Thus, we showed by mathematical induction that the statement holds.
 
 \subsection*{(b) (LEM) is derivable from (PBC)}
 
+\begin{logicproof}{3}
+    \begin{subproof}
+        \lnot (p \lor \lnot p) & assumption \\
+        \begin{subproof}
+            p & assumption \\
+            p \lor \lnot p & $\IntroA{\lor}$ 2\\
+            \bot & $\Elim{\lnot}$ 1, 3
+        \end{subproof}
+        \lnot p & $\Intro{\lnot}$ 2--4 \\
+        p \lor \lnot p & $\IntroB{\lor}$ 5 \\
+        \bot & $\Elim{\lnot}$ 1, 6
+    \end{subproof}
+    p \lor \lnot p & PBC 1--7
+\end{logicproof}
+
+\newpage
 \subsection*{(c) ($\lnot\lnot$E) is derivable from (LEM)}
+
+The only way I found of deriving ($\lnot\lnot$E) from (LEM) was by also using \textit{disjunctive syllogism} (\href{https://en.wikipedia.org/wiki/Disjunctive_syllogism}{Wikipedia}). Disjunctive syllogism is: $p \lor q, \lnot p \vdash q$. I tried proving it (in order to use it in the exercise), but couldn't do it without using ($\lnot\lnot$E). I don't know if there is another way of proving disjunctive syllogism without either ($\lnot\lnot$E) or (PBC). Most of the places I searched also used one of the two to prove it (\href{https://math.stackexchange.com/questions/3337855/proof-disjunctive-syllogism-using-natural-deduction}{for example}). I decided to put the proof here because it was the only one I could find, but I think it might involve the use of other rules beside LEM (which probably goes against the idea of the exercise).
+
+\begin{logicproof}{3}
+    \lnot p \lor p & LEM \\
+    \begin{subproof}
+        \lnot \lnot p & assumption \\
+        p & disjunctive syllogism
+    \end{subproof}
+    \lnot \lnot p \to p & $\Intro{\to}$ 2--3
+\end{logicproof}
 
 \section*{Exercise 3}
 The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW02/code/HW02.lean}{GitHub}.
@@ -166,5 +193,7 @@ The Lean template file with the solutions is available on \href{https://github.c
 \section*{Exercise 4}
 The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW02/code/HW02.lean}{GitHub}.
 
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW02/code/HW02.lean}{GitHub}.
 
 \end{document}
