@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {September 26, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 3}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+
+$\phi_1 \stackrel{\text{def}}{=} \lnot ((p \land q) \land r) \to ((\lnot p \lor \lnot q) \lor \lnot r)$ 
+
+\begin{logicproof}{3}
+    \begin{subproof}
+        \lnot ((p \land q) \land r) & assumption \\
+        \begin{subproof}
+            \lnot ((\lnot p \lor \lnot q) \lor \lnot r) & assumption \\
+            \begin{subproof}
+                \lnot p & assumption \\
+                \lnot p \lor \lnot q & $\Intro{\lor}$ 3 \\
+                (\lnot p \lor \lnot q) \lor \lnot r & $\Intro{\lor}$ 4\\
+                \bot & $\Elim{\lnot}$ 2, 5
+            \end{subproof}
+            \lnot \lnot p & $\Intro{\lnot}$ 3--6 \\
+            \begin{subproof}
+                \lnot q & assumption \\
+                \lnot p \lor \lnot q & $\Intro{\lor}$ 8 \\
+                (\lnot p \lor \lnot q) \lor \lnot r & $\Intro{\lor}$ 9\\
+                \bot & $\Elim{\lnot}$ 2, 10
+            \end{subproof}
+            \lnot \lnot q & $\Intro{\lnot}$ 8--11 \\
+            \begin{subproof}
+                \lnot r & assumption \\
+                \lnot q \lor \lnot r & $\Intro{\lor}$ 13 \\
+                (\lnot p \lor \lnot q) \lor \lnot r & $\Intro{\lor}$ 14\\
+                \bot & $\Elim{\lnot}$ 2, 15
+            \end{subproof}
+            \lnot \lnot r & $\Intro{\lnot}$ 13--16 \\
+            p & $\Elim{\lnot\lnot}$ 7 \\
+            q & $\Elim{\lnot\lnot}$ 12 \\
+            r & $\Elim{\lnot\lnot}$ 17 \\
+            p \land q & $\Intro{\land}$ 18, 19 \\
+            (p \land q) \land r & $\Intro{\land}$ 20, 21 \\
+            \bot & $\Elim{\lnot}$ 1, 22
+        \end{subproof}
+        \lnot \lnot ((\lnot p \lor \lnot q) \lor \lnot r) & $\Intro{\lnot}$ 2--23 \\
+        ((\lnot p \lor \lnot q) \lor \lnot r) & $\Elim{\lnot\lnot}$ 24
+    \end{subproof}
+    \lnot ((p \land q) \land r) \to ((\lnot p \lor \lnot q) \lor \lnot r) & $\Intro{\to}$ 1 --25
+\end{logicproof}
+
+\section*{Exercise 2}
+To show that the de Morgan's law for three variables $\phi_1 \stackrel{\text{def}}{=} \lnot ((p \land q) \land r) \to ((\lnot p \lor \lnot q) \lor \lnot r)$ is valid, we need to show that its negation is a contradiction, thus:
+
+\begin{center}
+    \synttree{8 \branchheight{.45in} \childsidesep{5em} \childattachsep{1em}}
+    [ $\lnot (\lnot ((p \land q) \land r) \to ((\lnot p \lor \lnot q) \lor \lnot r))$ 
+        [ $\lnot ((p \land q) \land r)$
+        [ $\lnot ((\lnot p \lor \lnot q) \lor \lnot r)$
+        [ $\lnot (\lnot p \lor \lnot q)$
+        [ $\lnot \lnot r$
+        [ $\lnot \lnot p$ 
+        [ $\lnot \lnot q$ 
+        [ $r$
+        [ $p$
+        [ $q$
+        [ $\lnot (p \land q)$
+            [$\lnot p$
+            [\bf{X}]]
+            [$\lnot q$
+            [\bf{X}]]
+        ]
+        [ $\lnot r$
+            [\bf{X}]
+        ]
+        ]]]]]]]]]
+    ]
+    \end{center}
+
+Since all paths are closed, the negation of the de Morgan's law is a contradiction. Thus, we proved that the de Morgan's law for 3 variables is a tautology.
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW03/code/HW03.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW03/code/HW03.lean}{GitHub}.
+
+
+\end{document}
