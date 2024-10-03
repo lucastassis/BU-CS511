@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {October 3, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 4}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+We can write the requirements for the $n$-Queens problem as a propositional wff $\psi_n$ as:
+
+$$\psi_n = \psi_n^{\text{row}} \land \psi_n^{\text{col}} \land \psi_n^{\text{diag1}} \land \psi_n^{\text{diag2}}$$
+
+where,
+
+$$\psi_n^{\text{row}} = \bigwedge_{i=1}^{n} \bigvee_{j=1}^{n} \left( q_{i, j} \land \bigwedge_{k\neq j}^{n} \lnot q_{i, k} \right)$$
+
+In $\psi_n^{\text{row}}$, the $\bigwedge\limits_{i=1}^{n}$ guarantees that every row will have a queen. The $\bigwedge\limits_{k\neq j}^{n}$ add the negation of all other elements in the row, except $q_{i, j}$, therefore, only $q_{i, j}$ can be true for the expression to be true (and thus, eliminating the ). Finally, the $\bigvee\limits_{j=1}^{n}$ guarantees that at least one of the expressions inside will have to be true. Therefore, if the expression is true, there is a queen, and only one, in each row.
+
+$$\psi_n^{\text{col}} = \bigwedge_{j=1}^{n} \bigvee_{i=1}^{n} \left( q_{i, j} \land \bigwedge_{k\neq j}^{n} \lnot q_{k, j} \right)$$
+
+In $\psi_n^{\text{col}}$, the argument is analogous to the $\psi_n^{\text{row}}$. Only this time, we add the negation of all other elements in the column. Therefore, if the expression is true, there is a queen, and only one, in each column.
+
+For the wffs $\psi_n^{\text{diag1}}$ and $\psi_n^{\text{diag2}}$, I used the solution on the book \href{https://www.mheducation.com/highered/product/discrete-mathematics-applications-rosen/M9781259676512.html}{Discrete Mathematics and Its Applications} as base. I was not able to find a better solution than the one used in the book for the diagonal restrictions. The expressions were the following:
+
+$$\psi_n^{\text{diag1}} = \bigwedge_{i=1}^{n-1}\bigwedge_{j=1}^{n-1}\bigwedge_{k=1}^{\text{min}(n-i, n-j)} (\lnot q_{i, j} \lor \lnot q_{i+k,j+k})$$
+
+The idea behind this expression is for each pair $i, j$ defined by the $\bigwedge\limits_{i=1}^{n-1}$ (covers all the rows) and the $\bigwedge\limits_{j=1}^{n-1}$ (covers all the columns), we check if there is a queen on the diagonal of $q_{ij}$. If there are two queens in a diagonal, the whole expression will be false. Notice that the upper limit is $n-1$ because the last element of each row/column do not have a diagonal, therefore, there is no need to check it. The way to cover the diagonal given a pair $i, j$ is to use the fact that $i_1 - j_1 = i_2 - j_2$ is true for the diagonal values. Therefore, we have that $i - j = (i + k) - (j + k)$, and that we can walk along the diagonal of a pair $i, j$ by adding $k$ in each row/column index. To control how big this $k$ can be considering $n$, the upper bound of $k$ is defined as $\text{min}(n-i, n-j)$. The upper bound avoids indices going beyond $n$ on the columns and rows. Notice that with the expression $\psi_n^{\text{diag1}}$, for each pair $i,j$ on the board, we check all the values in their diagonal to verify if there are two queens. Therefore, if the expression $\psi_n^{\text{diag1}}$ is true, there is a queen, and only one, in each diagonal.
+
+$$\psi_n^{\text{diag2}} = \bigwedge_{i=2}^{n}\bigwedge_{j=1}^{n-1}\bigwedge_{k=1}^{\text{min}(i-1, n-j)} (\lnot q_{i, j} \lor \lnot q_{i-k,j+k})$$
+
+The idea behind the antidiagonal expression is similar to the one for the diagonal expression. We only have to change the limits and also the way we calculate the antidiagonal of a pair $i, j$. First, the limit changes on $\bigwedge\limits_{i=2}^{n}$ because at $i = 1$ there is no antidiagonal. For $j$ the limit is similar. The way to cover the diagonal given a pair $i, j$, is to use the fact that $i_1 + j_1 = i_2 + j_2$ is true for the antidiagonal values. Therefore, we have that $i + j = (i - k) + (j + k)$, and that we can walk along the antidiagonal of a pair $i,j$ by subtracting and adding $k$ to the row/column index. To control how big this $k$ can be considering $n$, the upper bound of $k$ is defined as $\text{min}(i-1, n-j)$. The upper bound avoids indices going beyond $n$ on the columns and rows.  Notice that with the expression $\psi_n^{\text{diag2}}$, for each pair $i,j$ on the board, we check all the values in their antidiagonal to verify if there are two queens. Therefore, if the expression $\psi_n^{\text{diag2}}$ is true, there is a queen, and only one, in each antidiagonal.
+
+Thus, we showed that we can write the requirements for the $n$-Queens problem as a propositional wff $\psi_n = \psi_n^{\text{row}} \land \psi_n^{\text{col}} \land \psi_n^{\text{diag1}} \land \psi_n^{\text{diag2}}$.
+
+\section*{Exercise 2}
+The exercise asked us to simplify the formal definition of substitution by modifying the QPL BNF to guarantee that in every wff:
+
+\begin{enumerate}
+    \item there is at most one binding occurrence for the same variable;
+    \item a variable cannot have both free and bound occurrences.
+\end{enumerate}
+
+There are a few ways I thought about doing this exercise depending on if the new BNF should be as expressive as the original QPL BNF or not.
+
+\vspace{0.2cm}
+\textbf{Case 1: Not as expressive as QPL}
+\vspace{0.2cm}
+
+If we wanted to define a BNF for QPL following the two guarantees to generate wffs of the format $Q\boldsymbol{x}. \varphi$, \emph{i.e.}, one quantifier on the outside of an expression $\varphi$, we could do the following:
+
+$$\psi ::= \forall\boldsymbol{x}. \varphi \mid \exists\boldsymbol{x}. \varphi  $$
+$$\varphi ::= \bot \mid \top \mid \boldsymbol{x} \mid (\lnot \varphi) \mid (\varphi \land \varphi) \mid (\varphi \lor \varphi) \mid (\varphi \to \varphi)$$
+
+Considering that we create a condition that we cannot use a free variable as bound (I don't know how to express this in BNF), this BNF would ensure the two conditions, however, it would also not be as expressive as QPL. Notice that we would not be able to express $p \to \forall q. (\varphi \land \varphi)$ using this BNF.
+
+\vspace{0.2cm}
+\textbf{Case 2: Trying to be similarly expressive as QPL}
+\vspace{0.2cm}
+
+In the second try, I attempted to create a BNF that guarantee the two conditions and is as expressive as QPL:
+
+$$\varphi ::= \bot \mid \top \mid \texttt{FV} \mid (\lnot \varphi) \mid (\varphi \land \varphi) \mid (\varphi \lor \varphi) \mid (\varphi \to \varphi) \mid \forall_{\texttt{BV}}. \psi \mid \exists_{\texttt{BV}}. \psi$$
+
+$$\psi ::= \bot \mid \top \mid \texttt{BV} \mid (\lnot \psi) \mid (\psi \land \psi) \mid (\psi \lor \psi) \mid (\psi \to \psi)$$
+
+$$\texttt{FV} ::= a \mid b \mid \cdots \mid z$$
+$$\texttt{BV} ::= a' \mid b' \mid \cdots \mid z'$$
+
+Using this BNF, we guarantee that a variable cannot have both free and bound occurrences, because we split the variables in \texttt{BV} and \texttt{FV}. And if we explicitly say that we cannot repeat any variables already used, then, we would guarantee the first condition. I don't know if it would be possible to express this in BNF (in did some research about it and did not find any solution). Notice that this BNF still is not as expressive as QPL, because we cannot nest quantifiers $Q_1 \cdots Q_n.(\varphi)$. However, all my attempts to create a BNF that allowed nested quantifiers broke the ``at most one binding occurrence of the same variable", unless we stated that we could not repeat bound variables. 
+
+To answer the remainder of the exercise: if a BNF that satisfy both condition exists, then the last two substitution rules would be simpler, because you would not have to worry about variable captures.
+
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW04/code/HW04.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW04/code/HW04.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW04/code/HW04.lean}{GitHub}.
+
+
+
+\end{document}
