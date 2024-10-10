@@ -125,12 +125,12 @@ where, $t_1$ is $t_1$, $t_2$ is $t_2$, and $\phi(x)$ is $t + x \approx t + t_2$
         \begin{subproof}
             x_0 & fresh $x_0$ \\
             S \to Q(x_0) & assumption \\
-            Q(x_0) & $\Elim{\to}$ 2, 3 \\
-            \exists Q(x) & $\Intro{\exists}$ 4
+            Q(x_0) & $\Elim{\to}$ 2, 4 \\
+            \exists x Q(x) & $\Intro{\exists}$ 5
         \end{subproof}
-        \exists Q(x) & $\Elim{\exists}$ 1, 3--5
+        \exists x Q(x) & $\Elim{\exists}$ 1, 3--6
     \end{subproof}
-    S \to \exists x Q(x) & $\Intro{\to}$ 2--6
+    S \to \exists x Q(x) & $\Intro{\to}$ 2--7
 \end{logicproof}
 
 \subsection*{(b) $\forall x P(x) \to S \vdash \exists x (P(x) \to S)$}
