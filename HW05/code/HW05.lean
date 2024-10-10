@@ -2,7 +2,6 @@ import Library.Basic
 import Library.Theory.ModEq.Defs
 import AutograderLib
 
-
 math2001_init
 
 /- # The first three are theorems provided in MoP Section 3.3 -/
@@ -14,7 +13,7 @@ theorem Int.ModEq.add {n a b c d : ℤ} (h1 : a ≡ b [ZMOD n]) (h2 : c ≡ d [Z
   obtain ⟨y, hy⟩ := h2
   use x + y
   calc
-    a + c - (b + d) = (a - b) + (c - d) := by ring
+    a + c - (b + d) = a - b + (c - d) := by ring
     _ = n * x + n * y := by rw [hx, hy]
     _ = n * (x + y) := by ring
 
