@@ -139,10 +139,10 @@ There are two solutions for this exercise, one using the identities and equivale
 
 \begin{logicproof}{4}
     \forall x P(x) \to S & premise \\
-    \lnot \forall x P(x) \lor S & 1, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 3} (can be proved using truth table) \\
+    \lnot \forall x P(x) \lor S & 1, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 1} (can be proved using truth table) \\
     \exists x \lnot P(x) \lor S & 2, \href{https://en.wikipedia.org/wiki/First-order_logic#Provable_identities}{provable identity 1} \\
     \exists x (\lnot P(x) \lor S) & 3, \href{https://en.wikipedia.org/wiki/Prenex_normal_form#Conjunction_and_disjunction}{prenex normal form} (since $x$ is not free on $S$ we do not need to rename variables) \\
-    \exists x (P(x) \to S) & 4, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 3} (can be proved using truth table)
+    \exists x (P(x) \to S) & 4, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 1} (can be proved using truth table)
 \end{logicproof}
 
 The second one is using only natural deduction (based on web search):
