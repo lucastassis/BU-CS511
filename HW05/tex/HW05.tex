@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {October 10, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 5}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+
+\subsection*{(a) $(y \approx 0) \land (y \approx x) \vdash 0 \approx x$}
+
+\begin{logicproof}{3}
+    (y \approx 0) \land (y \approx x) & premise \\
+    y \approx 0 & $\Elim{\land}$ 1 \\
+    y \approx x & $\Elim{\land}$ 1 \\
+    0 \approx x & $\Elim{=}$ 2, 3
+\end{logicproof}
+where, $t_1$ is $y$, $t_2$ is 0, and $\phi(y)$ is $y \approx x$
+
+
+\subsection*{(b) $t_1 \approx t_2 \vdash (t + t_2) \approx (t + t_1)$}
+
+\begin{logicproof}{3}
+    t_1 \approx t_2 & premise \\
+    t + t_1 \approx t + t_1 & $\Intro{=}$ \\
+    t + t_2 \approx t + t_1 & $\Elim{=}$ 1, 2
+\end{logicproof}
+where, $t_1$ is $t_1$, $t_2$ is $t_2$, and $\phi(x)$ is $t + x \approx t + t_2$
+
+\section*{Exercise 2}
+
+\subsection*{(a) $\exists x (S \to Q(x)) \vdash S \to \exists x Q(x)$}
+
+\begin{logicproof}{3}
+    \exists x (S \to Q(x)) & premise \\
+    \begin{subproof}
+        S & assumption \\
+        \begin{subproof}
+            x_0 & fresh $x_0$ \\
+            S \to Q(x_0) & assumption \\
+            Q(x_0) & $\Elim{\to}$ 2, 3 \\
+            \exists Q(x) & $\Intro{\exists}$ 4
+        \end{subproof}
+        \exists Q(x) & $\Elim{\exists}$ 1, 3--5
+    \end{subproof}
+    S \to \exists x Q(x) & $\Intro{\to}$ 2--6
+\end{logicproof}
+
+\subsection*{(b) $\forall x P(x) \to S \vdash \exists x (P(x) \to S)$}
+
+There are two solutions for this exercise, one using the identities and equivalences, and one using only natural deduction proof. I will show both, but the pure natural deduction proof I found on the web. The first one using some identities and equivalences is:
+
+\begin{logicproof}{4}
+    \forall x P(x) \to S & premise \\
+    \lnot \forall x P(x) \lor S & 1, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 3} (can be proved using truth table) \\
+    \exists x \lnot P(x) \lor S & 2, \href{https://en.wikipedia.org/wiki/First-order_logic#Provable_identities}{provable identity 1} \\
+    \exists x (\lnot P(x) \lor S) & 3, \href{https://en.wikipedia.org/wiki/Prenex_normal_form#Conjunction_and_disjunction}{prenex normal form} (since $x$ is not free on $S$ we do not need to rename variables) \\
+    \exists x (P(x) \to S) & 4, \href{https://en.wikipedia.org/wiki/Logical_equivalence#Logical_equivalences_involving_conditional_statements}{equivalence 3} (can be proved using truth table)
+\end{logicproof}
+
+The second one is using only natural deduction (found on the web):
+
+\begin{logicproof}{4}
+    \forall x P(x) \to S & premise \\
+    \begin{subproof}
+        \lnot \exists x (P(x) \to S) & assumption \\
+        \begin{subproof}
+            x_0 & fresh $x_0$\\
+            \begin{subproof}
+                \lnot P(x_0) & assumption \\
+                \begin{subproof}
+                    P(x_0) & assumption \\
+                    \bot & $\Elim{\lnot}$ 4, 5 \\
+                    S & $\Elim{\bot}$ 6
+                \end{subproof}
+                P(x_0) \to S & $\Intro{\to}$ 5--7 \\
+                \exists x (P(x) \to S) & $\Intro{\exists x}$ 8 \\
+                \bot & $\Elim{\lnot}$ 2, 9
+            \end{subproof}
+            \lnot \lnot P(x_0) & $\Intro{\lnot}$ 4--10 \\
+            P(x_0) & $\Elim{\lnot \lnot }$ 11
+        \end{subproof}
+        \forall x P(x) & $\Intro{\forall x}$ 3--12 \\
+        S & $\Elim{\to}$ 1, 13 \\
+        \begin{subproof}
+            P(t) & assumption \\
+            S & copy 14
+        \end{subproof}
+        P(t) \to S & $\Intro{\to}$ 15--16 \\
+        \exists x (P(x) \to S) & $\Intro{\exists x}$ 17 \\
+        \bot & $\Elim{\lnot}$ 2, 18
+    \end{subproof}
+    \lnot \lnot \exists x (P(x) \to S) & $\Intro{\lnot}$ 2--19 \\
+    \exists x (P(x) \to S) & $\Elim{\lnot \lnot}$ 20
+    
+\end{logicproof}
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW05/code/HW05.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW05/code/HW05.lean}{GitHub}.
+
+
+
+
+\end{document}
