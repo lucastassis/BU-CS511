@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {October 17, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 6}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+
+We have to show that every finite subset $X \subseteq \mathbb{N}$ is first-order definable in the structure $(\mathbb{N}; <)$. Consider $X = \{x_1, \cdots, x_k\}$. We want to define:
+
+\begin{equation*}
+    \varphi_X(x) \stackrel{\text{def}}{=} 
+    \begin{cases}
+        \text{true,} & \text{if } x \in X \\
+        \text{false,} & \text{otherwise}
+    \end{cases}
+\end{equation*}
+
+Thus, 
+
+$$\varphi_X(x) \stackrel{\text{def}}{=} \bigvee_{i=1}^{k} (\varphi_{\{0\}}(x_k) \lor \psi(x_k))$$
+where,
+
+
+$$\psi(x_k) \stackrel{\text{def}}{=} \exists {y_1} \cdots \exists {y_{x_k}} \left[ \varphi_{\{0\}}(y_1) \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_1, y_2) \land \cdots \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_{x_k}, x_k)\right]$$
+
+and $\varphi_{\{0\}}(x)$, $\varphi_{\scriptscriptstyle\text{SUCC}}(x, y)$ are the wffs for the constant 0 and the successor function, respectively (proved in Exercises 1 and 2 of Lecture Slides 22 -- Appendix). 
+
+\vspace{0.25cm}
+
+Notice that $\psi$ can write a wff for any natural number $x_k \neq 0$. If $x_k = 0$ then $\varphi_{\{0\}}(x_k)$ will be true, and the value of $\psi(x_k)$ does not matter (because the $\lor$ will be true). Otherwise, if $x_k \neq 0$, then $\varphi_{\{0\}}(x_k)$ will be false, but $\psi(x_k)$ will ``build'' the natural number $x_k$, and $(\varphi_{\{0\}}(x_k) \lor \psi(x_k))$ will be true. Therefore, $\bigvee_{i=1}^{k} (\varphi_{\{0\}}(x_k) \lor \psi(x_k))$ will cover all the $x_k \in X$, and $\varphi_X(x)$ will be true for any $x \in X$, and false otherwise (because any $x \notin X$ will not be a part of $\varphi_X(x)$).
+
+
+% \begin{equation*}
+%     \psi(x) = 
+%     \begin{cases}
+%         \text{true,} & $if $ x \in X \\
+%         \text{false,} & \text{otherwise}
+%     \end{cases}
+% \end{equation*}
+
+\section*{Exercise 2}
+
+We have to show that the predicate $\texttt{prime}: \mathbb{N} \to \{\text{true}, \text{false}\}$ is first order definable in the structure $(\mathbb{N}; |, +, 0)$. Thus, we need to define:
+
+\begin{equation*}
+    \texttt{prime}(n) \stackrel{\text{def}}{=} 
+    \begin{cases}
+        \text{true,} & \text{if } n \text{ is a prime number} \\
+        \text{false,} & \text{otherwise}
+    \end{cases}
+\end{equation*}
+
+For that, let us define equality first. We define $\texttt{equal}(m, n)$, which is true if $m = n$, and false otherwise as:
+
+$$\texttt{equal}(m, n) \stackrel{\text{def}}{=} (m | n) \land (n | m)$$
+
+Additionally, we can define $1 \stackrel{\text{def}}{=} \texttt{succ}(0)$ (proved in Exercise 2 of Lecture Slides 22 -- Appendix). Notice that we can prove $<$ using $(\mathbb{N}; +, 0)$, as shown in Exercise 4 of  Lecture Slides 22 -- Appendix (so we can use the successor result). Then, we can define \texttt{prime}(n) as:
+
+$$\texttt{prime}(n)\stackrel{\text{def}}{=} \lnot \texttt{equal}(n, 0)\land \lnot \texttt{equal}(n, 1) \land \forall y (y | n \to \texttt{equal}(y, 1) \lor \texttt{equal}(y, n))$$
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW06/code/HW06.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW06/code/HW06.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW06/code/HW06.lean}{GitHub}.
+
+
+
+
+
+
+\end{document}
