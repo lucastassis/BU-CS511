@@ -106,17 +106,17 @@ We have to show that every finite subset $X \subseteq \mathbb{N}$ is first-order
 
 Thus, 
 
-$$\varphi_X(x) \stackrel{\text{def}}{=} \bigvee_{i=1}^{k} (\varphi_{\{0\}}(x_k) \lor \psi(x_k))$$
+$$\varphi_X(x) \stackrel{\text{def}}{=} \varphi_{\{0\}}(x) \lor \bigvee_{i=1; x_k \neq 0}^{k} \psi_{\{x_k\}}(x)$$
 where,
 
 
-$$\psi(x_k) \stackrel{\text{def}}{=} \exists {y_1} \cdots \exists {y_{x_k}} \left[ \varphi_{\{0\}}(y_1) \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_1, y_2) \land \cdots \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_{x_k}, x_k)\right]$$
+$$\psi_{\{x_k\}}(x) \stackrel{\text{def}}{=} \exists {y_1} \cdots \exists {y_{x_k}} \left[ \varphi_{\{0\}}(y_1) \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_1, y_2) \land \cdots \land \varphi_{\scriptscriptstyle\text{SUCC}}(y_{x_k}, x)\right]$$
 
 and $\varphi_{\{0\}}(x)$, $\varphi_{\scriptscriptstyle\text{SUCC}}(x, y)$ are the wffs for the constant 0 and the successor function, respectively (proved in Exercises 1 and 2 of Lecture Slides 22 -- Appendix). 
 
 \vspace{0.25cm}
 
-Notice that $\psi$ can write a wff for any natural number $x_k \neq 0$. If $x_k = 0$ then $\varphi_{\{0\}}(x_k)$ will be true, and the value of $\psi(x_k)$ does not matter (because the $\lor$ will be true). Otherwise, if $x_k \neq 0$, then $\varphi_{\{0\}}(x_k)$ will be false, but $\psi(x_k)$ will ``build'' the natural number $x_k$, and $(\varphi_{\{0\}}(x_k) \lor \psi(x_k))$ will be true. Therefore, $\bigvee_{i=1}^{k} (\varphi_{\{0\}}(x_k) \lor \psi(x_k))$ will cover all the $x_k \in X$, and $\varphi_X(x)$ will be true for any $x \in X$, and false otherwise (because any $x \notin X$ will not be a part of $\varphi_X(x)$).
+Notice that $\psi_{\{x_k\}}$ can write a wff for any natural number $x_k \neq 0$. If $x_k = 0$ then $\varphi_{\{0\}}(x)$ will be true. Otherwise, if $x_k \neq 0$, then $\varphi_{\{0\}}(x_k)$ will be false, but $\psi_{\{x_k\}}$ will be true. Therefore, $\varphi_X(x)$ will be true for any $x \in X$, and false otherwise (because any $x \notin X$ will not be a part of $\varphi_X(x)$).
 
 
 % \begin{equation*}
