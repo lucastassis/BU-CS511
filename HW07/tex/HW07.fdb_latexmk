@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1729727351.73683 "/Users/lucas/Documents/phd/BU-CS511/HW07/tex/HW07.tex" "HW07.pdf" "HW07" 1729727352.42661 0
-  "/Users/lucas/Documents/phd/BU-CS511/HW07/tex/HW07.tex" 1729727350.81831 6958 f99fc2a358baa6919d712ddae5d9b6bd ""
+["pdflatex"] 1729792375.87164 "/Users/lucas/Documents/phd/BU-CS511/HW07/tex/HW07.tex" "HW07.pdf" "HW07" 1729792376.57732 0
+  "/Users/lucas/Documents/phd/BU-CS511/HW07/tex/HW07.tex" 1729792375.65099 7127 c8cb8dc4e9332aaddec0d3affd0a9484 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1246382020 1120 200be8b775682cdf80acad4be5ef57e4 ""
@@ -188,9 +188,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1727890824.57027 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1727890745 8221421 0828163f3fe4b9de12845aa771572a3a ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "HW07.aux" 1729727352.36612 162 fa61bf9ecf9314f94d51aa32222a725c "pdflatex"
-  "HW07.out" 1729727352.16115 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "HW07.tex" 1729727350.81831 6958 f99fc2a358baa6919d712ddae5d9b6bd ""
+  "HW07.aux" 1729792376.51985 162 fa61bf9ecf9314f94d51aa32222a725c "pdflatex"
+  "HW07.out" 1729792376.32593 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "HW07.tex" 1729792375.65099 7127 c8cb8dc4e9332aaddec0d3affd0a9484 ""
   "lstlean.tex" 1726158468.88865 8363 57cc255f63557fa516b9ea2adf94ab16 ""
   (generated)
   "HW07.aux"
