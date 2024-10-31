@@ -1,0 +1,247 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+\usepackage{pdflscape}
+\usepackage{enumerate}   
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {October 31, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 8}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+
+\subsection*{(a)}
+
+\begin{enumerate}[i.]
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$S$
+            [$m$]
+            [$x$]]
+        \end{center}
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$S$
+            [$m$]
+            [$f$
+            [$m$]]]
+        \end{center}
+    \item No, because $f(m)$ is a term.
+    \item No, because we cannot nest predicates in predicate logic.
+    \item No, because we cannot nest predicates in predicate logic.
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$\to$
+            [$B$
+            [$x$]
+            [$y$]]
+            [$\exists z$
+            [$S$
+            [$z$]
+            [$y$]]]]
+        \end{center}
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$\to$
+            [$S$
+            [$x$]
+            [$y$]]
+            [$S$
+            [$y$]
+            [$f$
+            [$f$
+            [$x$]]]]]
+        \end{center}
+    \item No, because we cannot nest predicates in predicate logic.
+\end{enumerate}
+
+\subsection*{(b)}
+
+\begin{enumerate}[i.]
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$\forall x$
+            [$P$
+            [$f$
+            [$d$]]
+            [$h$
+            [$g$
+            [$c$]
+            [$x$]]
+            [$d$]
+            [$y$]]]]
+        \end{center}
+    \item No, because we cannot nest predicates in predicate logic.
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$\forall x$
+            [$Q$
+            [$g$
+            [$h$
+            [$x$]
+            [$f$
+            [$d$]]
+            [$x$]]
+            [$g$
+            [$x$]
+            [$x$]]]
+            [$h$
+            [$x$]
+            [$x$]
+            [$x$]]
+            [$c$]]]   
+        \end{center}
+    \item No, because $P$ has three arguments and only one was used.
+    \item No, because $g(x, y)$ is a function symbol not a predicate (violating the BNF of predicate logic). 
+    \item Yes.
+        \begin{center}
+            \synttree{8 \branchheight{.3in} \childsidesep{1em} \childattachsep{1em}}
+            [$Q$
+            [$c$]
+            [$d$]
+            [$c$]]
+        \end{center}
+\end{enumerate}
+
+\section*{Exercise 2}
+\subsection*{Exercise 2.3.2}
+This formula holds in a model iff the model has exactly two distinct elements.
+
+\subsection*{Exercise 2.3.3}
+\subsubsection*{(a)} 
+The formula would be:
+
+$$\exists x \exists y \exists z (\lnot (x \approx y) \land \lnot (y \approx z) \land \lnot (x \approx z) \land \forall w (w \approx x \lor w \approx y \lor w \approx z))$$
+
+\subsubsection*{(b)}
+The formula would be:
+
+\begin{align*}
+    & \exists x \forall w (w \approx x)\\
+    \lor &  \exists x \exists y (\lnot (x \approx y) \land \forall w (w \approx x \lor w \approx y)) \\
+    \lor & \exists x \exists y \exists z (\lnot (x \approx y) \land \lnot (y \approx z) \land \lnot (x \approx z) \land \forall w (w \approx x \lor w \approx y \lor w \approx z))
+\end{align*}
+
+Intuitively, the first part of the formula is the sentence for exactly one distinct element, the second is for exactly two distinct elements, and the third for exactly three distinct elements. Then, we just have to use a $\lor$ between each sentence.
+
+\subsubsection*{(c)}
+
+The formula would be:
+$$\exists x \exists y \exists z (\lnot (x \approx y) \land \lnot (y \approx z) \land \lnot (x \approx z))$$
+
+This formula guarantees that exists at least three distinct elements. 
+
+Alternatively, we can also negate the formula for ``at most two distinct elements'' (thus we have at least three).
+\begin{align*}
+    \lnot( & \exists x \forall w (w \approx x) \\
+    \lor &  \exists x \exists y (\lnot (x \approx y) \land \forall w (w \approx x \lor w \approx y)))
+\end{align*}
+
+
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW08/code/HW08.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW08/code/HW08.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW08/code/HW08.lean}{GitHub}.
+
+
+
+
+\end{document}
