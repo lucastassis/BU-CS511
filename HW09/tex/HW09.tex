@@ -1,0 +1,158 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+\usepackage{pdflscape}
+\usepackage{enumerate}   
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+\newcommand*{\defeq}{\stackrel{\text{def}}{=}}
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {November 7, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 9}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+First, consider that we have the signature $\{R, \approx\}$, where $R(x_1, x_2)$ means that there exists an edge between vertices $x_1$ and $x_2$. Additionally, we also consider that the graph is undirected, \emph{i.e.}, $\forall x_1 \forall x_2 (R(x, y) \to R(y, x))$.
+
+Then, we can write an infinite set $\Gamma_{\mathrm{bipartite}}$ of first order sentences such that, for every simple graph $G$, it holds that $G \models \Gamma_{\mathrm{bipartite}}$ iff $G$ is bipartite, as:
+
+$$\Gamma_{\mathrm{bipartite}} \defeq \{\lnot \varphi_{\{n\}} \mid n \geq 3; n\text{ is odd}\}$$
+
+where,
+
+$$\varphi_{\{n\}} \defeq \exists x_1 \cdots \exists x_n \left[ \left(\bigwedge_{1 \leq i, j \leq n} \lnot (x_i \approx x_j) \right) \land \left( \bigwedge_{1 \leq i \leq n-1} R(x_i, x_{i+1}) \right) \land R(x_n, x_1)\right]$$
+
+Using the fact that $G$ is bipartite iff every cycle in $G$ has even length, we can create $\Gamma_{\mathrm{bipartite}}$ as a set of first order sentences that say that there is \textbf{no} odd cycle in $G$. To create this set, we define $\varphi_{\{n\}}$, which is true iff there is a cycle of size $n$ in the graph $G$:
+
+\begin{enumerate}[i.]
+    \item $\bigwedge\limits_{1 \leq i, j \leq n} \lnot (x_i \approx x_j)$ guarantees that every element $x_1 \cdots x_n$ are distinct elements;
+    \item $\left( \bigwedge\limits_{1 \leq i \leq n-1} R(x_i, x_{i+1}) \right) \land R(x_n, x_1)$ guarantees that there is a cycle of size $n$.
+\end{enumerate}
+
+Therefore, by defining $\Gamma_{\mathrm{bipartite}}$ as the set of $\lnot \varphi_{\{n\}}$, for $n$ odd, we created an infinite set $\Gamma_{\mathrm{bipartite}}$ of first order sentences such that, for every simple graph $G$, it holds that $G \models \Gamma_{\mathrm{bipartite}}$ iff $G$ is bipartite.
+
+\section*{Exercise 2}
+Considering the three sentences:
+
+\begin{align*}
+    \varphi_1 \defeq &\ \forall x P(x, x) \\
+    \varphi_2 \defeq &\ \forall x \forall y (P(x, y) \to P(y, x)) \\
+    \varphi_3 \defeq &\ \forall x \forall y \forall z (P(x, y) \land P(y, z) \to P(x, z))
+\end{align*}
+
+We have to show that none of these sentences are semantically entailed by the other ones. To show that, we give an example of a $P$ that satisfies each pair of sentences but not the one left.
+
+\begin{enumerate}[i.]
+    \item $\{\varphi_1, \varphi_2 \}$: we have reflexivity and symmetry, but not transitivity.
+    
+    Consider the set $S \defeq \{a, b, c\}$ and the relation $P \defeq \{(a, a), (b, b), (c, c), (a, b), (b, a), (a, c), (c, a)\}$. In this example, we have reflexivity and symmetry, but we do not have transitivity. Take $(b, a)$ and $(a, c)$, we do not have $(b, c)$. 
+
+
+    \item $\{\varphi_1, \varphi_3 \}$: we have reflexivity and transitivity, but not symmetry.
+    
+    Consider the set $S \defeq \{a, b, c\}$ and the relation $P \defeq \{(a, a), (b, b), (c, c), (a, b), (b, c), (a, c)\}$. In this example, we have reflexivity and transitivity, but we do not have symmetry. Take $(a, b)$, we do not have $(b, a)$.
+
+    \item $\{\varphi_2, \varphi_3 \}$: we have symmetry and transitivity, but not reflexivity.
+    
+    Consider the set $S \defeq \{a, b, c\}$ and the relation $P \defeq \{(a, b), (b, a), (a, a), (b, b)\}$. In this example, we have symmetry and transitivity, but we do not have reflexivity. Take $c$, we do not have $(c, c)$.
+\end{enumerate}
+
+Thus, we showed that none of the sentences are semantically entailed by the other pair.
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW09/code/HW09.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW09/code/HW09.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW09/code/HW09.lean}{GitHub}.
+
+
+
+
+\end{document}
