@@ -117,10 +117,10 @@ Yes, $\textrm{Th}(\mathcal{M}) = \{ \varphi \mid \varphi \textrm{ is a first-ord
     \item The first-order sentence will be defined as:
     
     \begin{align*}
-        \varphi_3 \defeq \forall x \forall y \Big( \big(\lnot (x \approx y) \land R(x, y)\big) \to \big[ & \big(B(x) \land (G(y) \lor P(y) \lor Y(y))\big) \lor \\
-        & \big(G(x) \land (B(y) \lor P(y) \lor Y(y))\big) \lor \\
-        & \big(P(x) \land (B(y) \lor G(y) \lor Y(y))\big) \lor \\
-        & \big(Y(x) \land (B(y) \lor G(y) \lor P(y))\big)\big]\Big)
+        \varphi_3 \defeq \forall x \forall y \Big( \big(\lnot (x \approx y) \land R(x, y)\big) \to \big[ & \big(B(x) \land \lnot B(y)\big) \lor \\
+        & \big(G(x) \land \lnot G(y)\big) \lor \\
+        & \big(P(x) \land \lnot P(y)\big) \lor \\
+        & \big(Y(x) \land \lnot Y(y)\big)\big]\Big)
     \end{align*}
     
     \item Considering that $\mathcal{M}$ is an infinite planar graph, we have from Hint 2 that every finite subgraph of $\mathcal{M}$ is also planar. Additionally, we have from Hint 1, that every finite planar graph is four-colorable. Thus, since $\mathcal{M}$ is finitely satisfiable (every finite subgraph has a four-coloring from Hints 1 and 2), then $\mathcal{M}$ must also be four-colorable by \textit{compactness}. 
