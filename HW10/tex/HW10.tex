@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+\usepackage{pdflscape}
+\usepackage{enumerate}   
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+\newcommand*{\defeq}{\stackrel{\text{def}}{=}}
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {November 14, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 10}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+Yes, $\textrm{Th}(\mathcal{M}) = \{ \varphi \mid \varphi \textrm{ is a first-order sentence s.t } \mathcal{M} \models \varphi\}$ is deductively closed. Since we are considering first-order logic, then we have that $\mathcal{M} \models \varphi \to \ \mathcal{M} \vdash \varphi$ by \textit{completeness}. Therefore, we can say that $\textrm{Th}(\mathcal{M})$ is deductively closed, because for every $\mathcal{M} \models \varphi$, we also have $\mathcal{M} \vdash \varphi$ by using completeness.
+
+\section*{Exercise 2}
+
+\begin{enumerate}
+    \item The first-order sentence will be defined as:
+    
+    $$\varphi_1 \defeq \forall x (B(x) \lor G(x) \lor P(x) \lor Y(x))$$
+    
+    \item The first-order sentence will be defined as:
+    
+    \begin{align*}
+        \varphi_2 \defeq \forall x \Big( & \big(B(x) \land \lnot G(x) \land \lnot P(x) \land \lnot Y(x)\big) \lor \\
+          & \big(\lnot B(x) \land G(x) \land \lnot P(x) \land \lnot Y(x)\big) \lor\\
+          &\big(\lnot B(x) \land \lnot G(x) \land P(x) \land \lnot Y(x)\big) \lor \\
+          &\big(\lnot B(x) \land \lnot G(x) \land \lnot P(x) \land Y(x)\big)\Big)
+    \end{align*}
+
+    \item The first-order sentence will be defined as:
+    
+    \begin{align*}
+        \varphi_3 \defeq \forall x \forall y \Big( \big(\lnot (x \approx y) \land R(x, y)\big) \to \big[ & \big(B(x) \land (G(y) \lor P(y) \lor Y(y))\big) \lor \\
+        & \big(G(x) \land (B(y) \lor P(y) \lor Y(y))\big) \lor \\
+        & \big(P(x) \land (B(y) \lor G(y) \lor Y(y))\big) \lor \\
+        & \big(Y(x) \land (B(y) \lor G(y) \lor P(y))\big)\big]\Big)
+    \end{align*}
+    
+    \item Considering that $\mathcal{M}$ is an infinite planar graph, we have from Hint 2 that every finite subgraph of $\mathcal{M}$ is also planar. Additionally, we have from Hint 1, that every finite planar graph is four-colorable. Thus, since $\mathcal{M}$ is finitely satisfiable (every finite subgraph has a four-coloring from Hints 1 and 2), then $\mathcal{M}$ must also be four-colorable by \textit{compactness}. 
+\end{enumerate}
+
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW10/code/HW10.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW10/code/HW10.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW10/code/HW10.lean}{GitHub}.
+
+
+
+
+\end{document}
