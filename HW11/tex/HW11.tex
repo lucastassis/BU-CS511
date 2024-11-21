@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+\usepackage{pdflscape}
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {November 21, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 11}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+
+\subsection*{(a) $(\forall x \forall y (S(x, y) \to S(y, x))) \to (\forall x \lnot S(x, x))$}
+The formula states that if $S$ is symmetric, then $S$ is not reflexive. A trivial model that does not satisfy this formula is: $\mathcal{M} = (A, S^{\mathcal{M}})$, where $A \defn \{a\}$ be the domain of the model, and $S^{\mathcal{M}} \defn \{(a, a)\}$.
+
+\subsection*{(b) $\exists y ((\forall x P(x)) \to P(y))$}
+The formula is valid, using the tableaux as proof:
+\begin{center}
+    \synttree{8 \branchheight{.25in} \childsidesep{4em} \childattachsep{1em}}
+    [$\lnot \exists y ((\forall x P(x)) \to P(y))$
+    [$\lnot (\forall x P(x) \to P(a))$
+    [$\forall x P(x)$
+    [$\lnot P(a)$
+    [$P(a)$
+    [$\textbf{X}$
+    ]]]]]]
+\end{center}
+
+Since all the paths are closed, the negation of the formula is a contradiction, thus the formula is valid.
+\section*{Exercise 2}
+
+\subsection*{(c) $(\forall x (P(x) \to  \exists y Q(y))) \to (\forall x \exists y(P(x) \to Q(y)))$}
+The formula is valid, using the tableaux as proof:
+\begin{center}
+    \synttree{8 \branchheight{.25in} \childsidesep{4em} \childattachsep{1em}}
+    [$\lnot (\forall x (P(x) \to  \exists y Q(y))) \to (\forall x \exists y(P(x) \to Q(y)))$
+    [$\forall x (P(x) \to  \exists y Q(y))$
+    [$\lnot \forall x \exists y(P(x) \to Q(y))$
+    [$\lnot \exists y(P(a) \to Q(y))$
+    [$P(a) \to  \exists y Q(y)$
+    [$\lnot (P(a) \to Q(a))$
+    [$P(a)$
+    [$\lnot Q(a)$
+    [$\lnot P(a)$
+    [$\textbf{X}$]]
+    [$\exists y Q(y)$
+    [$Q(b)$
+    [$\lnot(P(a) \to Q(b))$
+    [$P(a)$
+    [$\lnot Q(b)$
+    [$\textbf{X}$]]]]]]]]]]]]]]
+\end{center}
+
+Since all the paths are closed, the negation of the formula is a contradiction, thus the formula is valid.
+
+\subsection*{(d) $(\forall x \exists y(P(x) \to Q(y))) \to (\forall x (P(x) \to \exists y Q(y)))$}
+The formula is valid, using the tableaux as proof:
+
+\begin{center}
+    \synttree{8 \branchheight{.25in} \childsidesep{4em} \childattachsep{1em}}
+    [$\lnot ((\forall x \exists y(P(x) \to Q(y))) \to (\forall x (P(x) \to \exists y Q(y))))$
+    [$\forall x \exists y(P(x) \to Q(y))$
+    [$\lnot \forall x (P(x) \to \exists y Q(y)))$
+    [$\lnot (P(a) \to \exists y Q (y))$
+    [$P(a)$
+    [$\lnot \exists y Q(y)$
+    [$\exists y (P(a) \to Q(y))$
+    [$P(a) \to Q(b)$
+    [$\forall y \lnot Q(y)$
+    [$\lnot Q(b)$
+    [$\lnot P(a)$
+    [$\textbf{X}$]]
+    [$Q(b)$
+    [$\textbf{X}$]]]]]]]]]]]]
+\end{center}
+
+Since all the paths are closed, the negation of the formula is a contradiction, thus the formula is valid.
+
+\section*{Exercise 3}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW11/code/HW11.lean}{GitHub}.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW11/code/HW11.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW11/code/HW11.lean}{GitHub}.
+
+
+
+
+\end{document}
