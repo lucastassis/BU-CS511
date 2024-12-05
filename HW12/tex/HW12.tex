@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage{xspace,epsfig,amsmath,amsthm,amssymb,fullpage}
+\topmargin   0pt
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin 0pt
+\marginparsep 0pt
+\textwidth   6.5in
+\textheight  9.2in
+
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat} % for parse trees
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bm} 
+% \usepackage{prooftree}
+\usepackage{flagderiv}
+\usepackage{logicproof}
+\usepackage{bussproofs}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{synttree} 
+\usepackage{pdflscape}
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+% WARNING:
+% Do NOT use package `bussproofs' and package `prooftree' at the same time,
+% \begin{prooftree} ... \end{prooftree} is an environment defined in the
+% package  `bussproofs', which conflicts with the name of the package
+% `prooftree'.
+
+\newcommand{\defn}{\overset{\text{\scriptsize def}}{=}}
+\newcommand{\Intro}[1]{{#1}{\text{i}}}
+\newcommand{\IntroA}[1]{{#1}{\text{i}_1}}
+\newcommand{\IntroB}[1]{{#1}{\text{i}_2}}
+\newcommand{\Elim}[1]{{#1}{\text{e}}}
+\newcommand{\ElimA}[1]{{#1}{\text{e}_1}}
+\newcommand{\ElimB}[1]{{#1}{\text{e}_2}}
+\newcommand{\Set}[1]{\{ #1 \}}
+\newcommand{\SET}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\TTT}{\bm{\mathsf{T}}}
+\newcommand{\FFF}{\bm{\mathsf{F}}}
+\setlength{\parindent}{0pt}
+% parameters: four corners, title, scribes' names
+\newcommand{\handout}[6]{{
+\begin{center}
+\begin{minipage}{14cm}
+    \setlength{\parindent}{0cm}%
+    \fbox{\vbox{%
+        {#1}%
+        \hfill
+        #2
+
+        \center{\Large\bf{#5}}
+
+        \emph{#3}\hfill #4
+    }}%
+    \vskip0pt
+    \vbox{\hfill  #6}%
+\end{minipage}
+\\ 
+\end{center}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout{CS 511 Formal Methods, Fall 2024}
+        {Instructor: Assaf Kfoury}
+        {December 5, 2024}
+        {Lucas Miguel Tassis}
+        {Homework Assignment 12}
+
+%%  THE FOLLOWING IS USED WITH THE logicproof ENVIRONMENT:
+%%
+\setlength{\subproofhorizspace}{.5em}
+\setlength{\intersubproofvertspace}{0.5em}
+\lstset{language=lean}
+
+
+\section*{Exercise 1} 
+The exercise asks us to define $X \sim Y$ by asserting the existence of a unary function $F$ from $X$ to $Y$ which is both injective and surjective. One possible way is:
+
+\begin{align*}
+    X \sim Y \defn \exists F. \Big(& \big(\forall x \in X. \forall y \in X. \forall z \in Y.(F(x) \approx z \land F(y) \approx z \to x \approx y)\big) \land \\
+    & \big(\forall y \in Y. \exists x \in X. (F(x) \approx y)\big)\Big)
+\end{align*}
+
+The first line says that $F$ is injective from $X$ to $Y$, and the second says that $F$ is surjective from $X$ to $Y$.
+
+
+\section*{Exercise 2}
+
+\begin{enumerate}
+    \item The first item asks us to define a 2nd-order sentence $\Psi_{\text{countable-infty}}(Y)$ s.t. $\mathcal{A} \models \Psi_{\text{countable-infty}}$ iff $\mathcal{A}$ is countably infinite. Similarly to the sentence in the slide, we can define as:
+    $$\Psi_{\text{countable-infty}}(Y) \defn \Psi_{\text{infty}}(Y) \land \big(\forall X \subseteq Y.\ \Psi_{\text{infty}}(X) \to (X \sim Y) \big),$$
+    where
+    \begin{align*}
+        \Psi_{\text{infty}}(X) \defn \exists F. \Big(& \big(\forall x \in X. \forall y \in X. \forall z \in X.(F(x) \approx z \land F(y) \approx z \to x \approx y)\big) \land \\
+        & \big(\exists y \in X. \forall x \in X. \lnot (F(x) \approx y)\big)\Big),
+    \end{align*}
+    and $X \sim Y$ is as defined in Exercise 1.
+    In this case, the model should be infinite, and also there is a bijection from every subset $X$ of $Y$ from $X$ to $Y$.
+    \item The second item asks us to define a 2nd-order sentence $\Psi_{\text{uncountable}}(Y)$ s.t. $\mathcal{A} \models \Psi_{\text{uncountable}}$ iff $\mathcal{A}$ is uncountably infinite. We can define the sentence as:
+    $$\Psi_{\text{uncountable}}(Y) \defn \Psi_{\text{infty}}(Y) \land \lnot \big(\forall X \subseteq Y.\ \Psi_{\text{infty}}(X) \to (X \sim Y) \big),$$
+    where $\Psi_{\text{infty}}(Y)$ and $X \sim Y$ are the same as defined in Item 1.
+    We can also rewrite the sentence by pushing the negation:
+    $$\Psi_{\text{uncountable}}(Y) \defn \Psi_{\text{infty}}(Y) \land \big(\exists X \subseteq Y.\ \Psi_{\text{infty}}(X) \land \lnot (X \sim Y) \big),$$
+    In this case, the model should still be infinite, however, there is not a bijection from every subset $X$ of $Y$ from $X$ to $Y$.
+\end{enumerate}
+
+\section*{Exercise 3}
+
+The exercise asks us to define a second-order wff $\theta (x, y)$, such that $\theta(x,y)$ iff ``no binary predicate $Y$ can discern $x$ and $y$''. One possible way is:
+
+$$\theta(x, y) \defn \forall Y.\Big(\forall c. \big(Y(x, c) \leftrightarrow Y(y, c) \land Y(c, x) \leftrightarrow Y(c, y)\big)\Big)$$
+
+The idea behind the wff is that $x$ and $y$ are identical to $\theta$ iff $x$ and $y$ satisfy the same binary predicates, and each iff in the wff guarantees this.
+
+\section*{Exercise 4}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW12/code/HW12.lean}{GitHub}.
+
+\section*{Exercise 5}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW12/code/HW12.lean}{GitHub}.
+
+\section*{Exercise 6}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW12/code/HW12.lean}{GitHub}.
+
+\section*{Problem 2}
+The Lean template file with the solutions is available on \href{https://github.com/lucastassis/BU-CS511/blob/main/HW12/code/HW12.lean}{GitHub}.
+
+
+
+
+\end{document}
