@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{neurips}
+Emily First, Albert Jiang, and Kaiyu Yang.
+\newblock {NeurIPS} tutorial on machine learning for theorem proving.
+\newblock \url{https://machine-learning-for-theorem-proving.github.io}, 2023.
+
+\bibitem{leancopilot}
+Peiyang Song, Kaiyu Yang, and Anima Anandkumar.
+\newblock Towards large language models as copilots for theorem proving in lean.
+\newblock {\em arXiv preprint arXiv:2404.12534}, 2024.
+
+\bibitem{llmstep}
+Sean Welleck and Rahul Saha.
+\newblock Llmstep: Llm proofstep suggestions in lean.
+\newblock {\em arXiv preprint arXiv:2310.18457}, 2023.
+
+\end{thebibliography}
