@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.2)  10 DEC 2024 16:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.2)  13 DEC 2024 14:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -496,39 +496,39 @@ Overfull \hbox (16.3638pt too wide) in paragraph at lines 490--509
  []
 
 
-Overfull \hbox (16.3638pt too wide) in paragraph at lines 517--538
-[]$[]$ |$[]$ 
- []
-
-
-Overfull \hbox (16.3638pt too wide) in paragraph at lines 543--585
+Overfull \hbox (16.3638pt too wide) in paragraph at lines 517--546
 []$[]$ |$[]$ 
  []
 
 [11]
-Overfull \hbox (9.22708pt too wide) in paragraph at lines 591--592
-\OT1/cmr/m/n/12 We cre-ated a set of ex-am-ples us-ing dif-fer-ent types of proof to eval-u-ate the \OT1/cmtt/m/n/12 LeanCopilot
- []
-
-[12] [13]
-Overfull \hbox (16.3638pt too wide) in paragraph at lines 645--664
+Overfull \hbox (16.3638pt too wide) in paragraph at lines 551--582
 []$[]$ |$[]$ 
  []
 
+[12]
+Overfull \hbox (9.22708pt too wide) in paragraph at lines 588--589
+\OT1/cmr/m/n/12 We cre-ated a set of ex-am-ples us-ing dif-fer-ent types of proof to eval-u-ate the \OT1/cmtt/m/n/12 LeanCopilot
+ []
 
-Overfull \hbox (16.3638pt too wide) in paragraph at lines 667--693
+[13]
+Overfull \hbox (16.3638pt too wide) in paragraph at lines 642--661
 []$[]$ |$[]$ 
  []
 
 [14]
-Overfull \hbox (16.3638pt too wide) in paragraph at lines 696--729
+Overfull \hbox (16.3638pt too wide) in paragraph at lines 664--690
+[]$[]$ |$[]$ 
+ []
+
+
+Overfull \hbox (16.3638pt too wide) in paragraph at lines 693--726
 []$[]$ |$[]$ 
  []
 
 [15] [16{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 762.
- (./term_project.bbl) [17] (./term_project.aux)
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 759.
+ (./term_project.bbl [17]) [18] (./term_project.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -538,17 +538,17 @@ Package rerunfilecheck Info: File `term_project.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  13089 strings out of 474116
- 197012 string characters out of 5743682
+ 196993 string characters out of 5743682
  2204187 words of memory out of 5000000
- 34824 multiletter control sequences out of 15000+600000
+ 34826 multiletter control sequences out of 15000+600000
  570690 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,11n,79p,1085b,1005s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on term_project.pdf (17 pages, 487826 bytes).
+Output written on term_project.pdf (18 pages, 488500 bytes).
 PDF statistics:
- 804 PDF objects out of 1000 (max. 8388607)
+ 805 PDF objects out of 1000 (max. 8388607)
  747 compressed objects within 8 object streams
- 466 named destinations out of 1000 (max. 500000)
+ 464 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -13,9 +13,9 @@
 \contentsline {subsubsection}{\numberline {3.1.7}Simple Induction}{10}{subsubsection.3.1.7}%
 \contentsline {subsubsection}{\numberline {3.1.8}Injectivity, Surjectivity, and Bijectivity}{11}{subsubsection.3.1.8}%
 \contentsline {subsubsection}{\numberline {3.1.9}Sets}{11}{subsubsection.3.1.9}%
-\contentsline {subsubsection}{\numberline {3.1.10}Relations}{12}{subsubsection.3.1.10}%
-\contentsline {subsubsection}{\numberline {3.1.11}Discussion}{12}{subsubsection.3.1.11}%
+\contentsline {subsubsection}{\numberline {3.1.10}Relations}{13}{subsubsection.3.1.10}%
+\contentsline {subsubsection}{\numberline {3.1.11}Discussion}{13}{subsubsection.3.1.11}%
 \contentsline {subsection}{\numberline {3.2}A small study using \texttt {LLMStep} }{13}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Combining \texttt {LeanCopilot} and \texttt {LLMStep} }{14}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Conclusion}{15}{section.4}%
-\contentsline {section}{\numberline {5}Future Work}{16}{section.5}%
+\contentsline {section}{\numberline {4}Conclusion}{16}{section.4}%
+\contentsline {section}{\numberline {5}Future Work}{17}{section.5}%

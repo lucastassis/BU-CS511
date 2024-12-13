@@ -518,10 +518,18 @@ Next, we analyze the proofs on sets. First, an example where the tool finds a so
   \begin{lstlisting}[title={Human proof}]
   -- Exercise 9.2.8.6   
   example : {n : ℤ | 5 | n} ∩ {n : ℤ | 8 | n} ⊆ {n : ℤ | 40 | n} := by
-    intro n hn
-    simp_all only [Set.mem_inter_iff, Set.mem_setOf_eq]
-    obtain ⟨left, right⟩ := hn
-    omega
+    dsimp [Set.subset_def]
+    intro n h
+    obtain ⟨h1, h2⟩ := h
+    obtain ⟨b, hb⟩ := h1
+    obtain ⟨a, ha⟩ := h2
+    dsimp [· | ·]
+    use -3 * a + 2 * b
+    calc
+      n = -15 * n + 16 * n := by ring
+      _ = -15 * (8 * a) + 16 * n := by rw [ha]
+      _ = -15 * (8 * a) + 16 * (5 * b) := by rw [hb]
+      _ = 40 * (-3 * a + 2 * b) := by ring
   \end{lstlisting}
 \end{minipage}
 \vline
@@ -565,21 +573,10 @@ The tool was really successful in $\in$ and $\subseteq$ proofs, finding a full p
   \begin{lstlisting}[title={\leancopilot proof}]
   --Exercise 9.3.6.1
   def r (s : Set ℕ) : Set ℕ := s ∪ {3}
-  
   example : ¬ Injective r := by
-    dsimp [Injective]
-    push_neg
-    use ∅, {3}
-    constructor
-    · dsimp [r]
-      ext n
-      dsimp
-      exhaust
-    · ext
-      push_neg
-      use 3
-      dsimp
-      exhaust
+    apply Aesop.BuiltinRules.not_intro
+    intro a
+    sorry
   \end{lstlisting}
 \end{minipage}
 
@@ -739,12 +736,12 @@ The objective of this project was to study the use of LLMs for automatic theorem
   \begin{enumerate}[label=(\arabic*)]
     \item The tools were able to produce at least one proof of every kind tested;
     \item Particularly, in predicate logic, the \leancopilot tool was excellent, finding proofs in most examples tested;
-    \item The tool performed well when it only needed to apply lemmas and tactics to solve the goals.
+    \item The tools performed well when it only needed to apply lemmas and tactics to solve the goals.
   \end{enumerate}
   \item \textbf{Weaknesses:}
   \begin{enumerate}[label=(\arabic*)]
-    \item The tool struggled with every proof that needed some kind of algebra manipulation that was not implemented by some lemma and/or tactic;
-    \item The tool was not able to find proofs of induction and contradiction in most cases tested (the only ones where it worked are presented in the experiments section);
+    \item The tools struggled with every proof that needed some kind of algebra manipulation that was not implemented by some lemma and/or tactic;
+    \item The tools were not able to find proofs of induction and contradiction in most cases tested (the only ones where it worked are presented in the experiments section);
     \item Particularly, \leancopilot did not create proofs using \texttt{ring} and \texttt{numbers}, which might be related to the different Lean4 versions;
     \item The configuration of these tools in Lean4 projects were not so easy to implement. This is expected, since both tools are relatively new projects. However, the difficulty in using the tools in own projects might be an entry barrier for their use in real-world proofs.
   \end{enumerate}
